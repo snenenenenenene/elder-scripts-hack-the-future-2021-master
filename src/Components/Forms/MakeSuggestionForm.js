@@ -11,10 +11,26 @@ import Button from "../Button";
 
 export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
   const { settings } = useSettings();
+  const [clues, setClues] = useState([])
 
   const [weapon, setWeapon] = useState(null)
   const [suspect, setSuspect] = useState(null)
   
+  useEffect(() => {
+    axios
+      .get("https://htf-2021.calibrate.be/api/cluedo/clues", {
+        auth: {
+          username: process.env.REACT_APP_USERNAME,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+      })
+      .then((results) => {
+        console.log(results);
+        setClues(results.data);
+      });
+  }, []);
+
+
   const handleSubmit = (e) => {
 
     const json = JSON.stringify({
@@ -23,11 +39,18 @@ export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
       "suspect": suspect
     });
 
-    axios.post(`https://htf-2021.calibrate.be/api/cluedo/guess?key=${gameKey}`, json)
+    axios.post(`https://htf-2021.calibrate.be/api/cluedo/guess?key=${gameKey}`, json,
+    {auth: {
+      username: process.env.REACT_APP_USERNAME,
+      password: process.env.REACT_APP_PASSWORD,
+    },
+       headers: {
+      'Content-Type': 'application/json'
+    }})
     .then((response) => {
     
       {
-          newLog(json)
+          console.log(response)
       }
     
     }
@@ -35,15 +58,28 @@ export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
     e.preventDefault();
   }
 
+  const mapSelect = (type) => {
+    return clues.map((i) => {
+      if (i.type === type) {
+        return (
+          <option value={i.id}>{i.title}</option>
+        )
+      }
+    })
+  }
+
   return (
     <div>
       <h2>Maak een suggestie</h2>
       <form style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
-        <label htmlFor="suspect">Suspect</label>
-        <input id="suspect" name="suspect" type="text" onChange={(e) => setSuspect(e.target.value)}/>
+      <label htmlFor="suspect">Suspect</label>
+        <select id="suspect" name="suspect" type="text" onChange={(e) => setSuspect(e.target.value)}>
+        {mapSelect("suspect")}
+        </select>
         <label htmlFor="weapon">Weapon</label>
-        <input id="weapon" name="weapon" type="text" onChange={(e) => setWeapon(e.target.value)}/>
-      <p>Maak een formulier om een arrestatie te maken.</p>
+        <select id="weapon" name="weapon" type="text" onChange={(e) => setWeapon(e.target.value)}>
+          {mapSelect("weapon")}
+        </select>
       <Button value="Maak suggestie" onClick={(e) => handleSubmit(e)}></Button>
       </form>
     </div>

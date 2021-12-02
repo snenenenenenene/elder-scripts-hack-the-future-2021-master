@@ -18,7 +18,8 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
   const [isArrest, setIsArrest] = useState(false);
 
   const pushLog = (newLog) => {
-      setLog(log.push(newLog))
+    console.log(log)
+    console.log(newLog)
   }
 
   return (
@@ -27,7 +28,6 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
         <MakeSuggestionForm
           gameKey={gameKey}
           selectedRoom={room}
-          newLog={pushLog}
           onSuggestion={() => setRoom(null)}
         />
       )}
