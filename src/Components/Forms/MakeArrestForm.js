@@ -18,17 +18,21 @@ export const MakeArrestForm = ({ gameKey, onArrest }) => {
 
   const makeAccusation = (e) => {
     e.preventDefault()
+
+    const json = JSON.stringify({
+      "room": room,
+    "weapon": weapon,
+    "suspect": suspect
+    });
+
     axios
-  .post(`https://htf-2021.calibrate.be/api/cluedo/accuse?key=${gameKey}`, {
-    "room": room,
-  "weapon": weapon,
-  "suspect": suspect
-  },
+  .post(`https://htf-2021.calibrate.be/api/cluedo/accuse?key=${gameKey}`,json,
    {
-    auth: {
-      username: process.env.REACT_APP_USERNAME,
-      password: process.env.REACT_APP_PASSWORD,
-    },
+     headers: {
+    'Content-Type': 'application/json',
+    "Authenticaion": `${process.env.REACT_APP_USERNAME}:${process.env.REACT_APP_PASSWORD} Base64 encoded`,
+    "Access-Control-Allow-Origin": "*"
+  }
   })
   .then(() => setSuccess(false)
     )

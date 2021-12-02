@@ -13,6 +13,7 @@ const Cluedo = () => {
   const handleEndGame = useCallback(() => {
     setKey(null);
     setGameOver(null);
+    localStorage.removeItem('key')
   }, []);
 
   return settings ? (
