@@ -15,7 +15,7 @@ export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
 
   const [weapon, setWeapon] = useState(null)
   const [suspect, setSuspect] = useState(null)
-  
+
   useEffect(() => {
     axios
       .get("https://htf-2021.calibrate.be/api/cluedo/clues", {
@@ -48,11 +48,11 @@ export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
       'Content-Type': 'application/json'
     }})
     .then((response) => {
-    
+
       {
           console.log(response)
       }
-    
+
     }
     )
     e.preventDefault();
