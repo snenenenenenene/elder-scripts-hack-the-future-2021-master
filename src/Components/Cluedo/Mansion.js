@@ -27,9 +27,8 @@ axios
   }, [])
 
   const getRooms = () => {
-    console.log(response[0])
-    if (response.type === "room"){
     return response.map((i) => {
+      if (i.type === "room"){
       console.log(i)
       return (
         <div>
@@ -37,8 +36,9 @@ axios
           <img alt="soep" src={i.image} />
         </div>
       );
+      }
     });}
-  };
+
 
   return (
     <div>
