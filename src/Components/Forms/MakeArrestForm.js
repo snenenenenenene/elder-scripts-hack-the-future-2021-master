@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useSettings } from "../context/useSettings";
 import axios from 'axios'
 import Button from "../Button";
@@ -14,7 +14,22 @@ export const MakeArrestForm = ({ gameKey, onArrest }) => {
   const [room, setRoom] = useState("")
   const [suspect, setSuspect] = useState("")
   const [weapon, setWeapon] = useState("")
+  const [response, setResponse] = useState("")
+  const [clues, setClues] = useState([])
 
+  useEffect(() => {
+    axios
+      .get("https://htf-2021.calibrate.be/api/cluedo/clues", {
+        auth: {
+          username: process.env.REACT_APP_USERNAME,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+      })
+      .then((results) => {
+        console.log(results);
+        setClues(results.data);
+      });
+  }, []);
 
   const makeAccusation = (e) => {
     e.preventDefault()
@@ -27,15 +42,34 @@ export const MakeArrestForm = ({ gameKey, onArrest }) => {
 
     axios
   .post(`https://htf-2021.calibrate.be/api/cluedo/accuse?key=${gameKey}`,json,
-   {
+   {auth: {
+    username: process.env.REACT_APP_USERNAME,
+    password: process.env.REACT_APP_PASSWORD,
+  },
      headers: {
-    'Content-Type': 'application/json',
-    "Authenticaion": `${process.env.REACT_APP_USERNAME}:${process.env.REACT_APP_PASSWORD} Base64 encoded`,
-    "Access-Control-Allow-Origin": "*"
+    'Content-Type': 'application/json'
   }
   })
-  .then(() => setSuccess(false)
+  .then((response) => {
+    console.log(response)
+    setResponse(response)
+    setSuccess(true)
+    if (response.data.correct === false) {
+      onArrest(response.data)
+      // alert(`${response.data.message} \n Het juiste antwoord was: \n Kamer: ${response.data.solution.room} Wapen: ${response.data.solution.weapon} Suspect: ${response.data.solution.suspect}`)
+    }
+  }
     )
+  }
+
+  const mapSelect = (type) => {
+    return clues.map((i) => {
+      if (i.type === type) {
+        return (
+          <option value={i.id}>{i.title}</option>
+        )
+      }
+    })
   }
 
   return (
@@ -43,13 +77,21 @@ export const MakeArrestForm = ({ gameKey, onArrest }) => {
       <h2>Maak een arrestatie</h2>
       <form style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
         <label htmlFor="room">Room</label>
-        <input id="room" name="room" type="text" onChange={(e) => setRoom(e.target.value)}/>
+        <select id="room" name="room" type="text" onChange={(e) => setRoom(e.target.value)}>
+        {mapSelect("room")}
+        </select>
         <label htmlFor="suspect">Suspect</label>
-        <input id="suspect" name="suspect" type="text" onChange={(e) => setSuspect(e.target.value)}/>
+        <select id="suspect" name="suspect" type="text" onChange={(e) => setSuspect(e.target.value)}>
+        {mapSelect("suspect")}
+        </select>
         <label htmlFor="weapon">Weapon</label>
-        <input id="weapon" name="weapon" type="text" onChange={(e) => setWeapon(e.target.value)}/>
+        <select id="weapon" name="weapon" type="text" onChange={(e) => setWeapon(e.target.value)}>
+          {mapSelect("weapon")}
+        </select>
       <p>Maak een formulier om een arrestatie te maken.</p>
-      <Button value="Maak arrestatie" onClick={(e) => makeAccusation(e)}></Button>
+      <Button
+      value={success ? "Arrestatie Gedaan" : "Maak Arrestatie" }
+       onClick={(e) => makeAccusation(e)}></Button>
       </form>
     </div>
   );
