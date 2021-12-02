@@ -1,14 +1,9 @@
-import {useSettings} from "../context/useSettings";
+import { useSettings } from "../context/useSettings";
 import Button from "../Button";
-import React, {useEffect, useState} from "react";
-
-
-import axios from 'axios';
-
-
-import Clues from "../Clues/Clues"
-import Mansion from "./Mansion"
-
+import React, { useEffect, useState } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import Mansion from "./Mansion";
+import useAxios from "../../Hooks/useAxios";
 
 /*
    CLUEDO START
@@ -18,48 +13,30 @@ import Mansion from "./Mansion"
 */
 
 const CluedoStart = ({ onStart }) => {
+  const [gameKey] = useAxios("https://htf-2021.calibrate.be/api/cluedo/new-game");
+  const [clues] = useAxios("https://htf-2021.calibrate.be/api/cluedo/clues")
+  const [rooms, setRooms] = useState([])
+  const history = useHistory();
   const { settings } = useSettings();
-  const [responseData, setResponseData] = useState({})
-
 
   const startGame = () => {
-    axios.get('https://htf-2021.calibrate.be/api/cluedo/clues', {
-      auth: {
-        username: process.env.REACT_APP_USERNAME,
-        password: process.env.REACT_APP_PASSWORD
-      }
+    let _rooms = [];
+    console.log(gameKey.data.key)
+    clues.data.forEach(i => {
+      if (i.type === "room"){
+      _rooms.push(i)
+    }
     })
-        .then(results => {
-          console.log(results)
-          setResponseData(results.data)
-        })
-      }
-    
-      const mapResponse = () => {
-        if (responseData != {}) {
-          return (responseData.map((i) => (
-              <div>
-                <p>{i.id}. {i.type}: {i.title}</p>
-              </div>
-            ))
-          )
-        }
-        else {
-            return (<div>No Data</div>)
-        }
-    // Haal alle kamers en clues op 
-
-    // Start mansion
-
-
-    // Visualiseer kamers
-
+    setRooms(_rooms)
+    console.log(rooms)
+    localStorage.setItem('key', gameKey)
+    window.location.reload()
   };
 
   return (
     <div className={"file full"}>
       <h2>Cluedo</h2>
-      <Button onClick={startGame} value="Start een nieuw spel" />
+        <Button onClick={startGame} value="Start een nieuw spel" />
     </div>
   );
 };

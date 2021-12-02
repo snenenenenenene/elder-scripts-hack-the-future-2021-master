@@ -7,7 +7,6 @@ import axios from 'axios';
 */
 
 const Clues = () => {
-
   const [responseData, setResponseData] = useState({})
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const Clues = () => {
   }, [])
 
   const mapResponse = () => {
-    if (responseData != {}) {
+    if (Object.keys(responseData).length !== 0) {
       return (responseData.map((i) => (
           <div>
             <p>{i.id}. {i.type}: {i.title}</p>

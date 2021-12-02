@@ -7,8 +7,7 @@ import { useSettings } from "../context/useSettings";
 
 const Cluedo = () => {
   const { settings } = useSettings();
-
-  const [gameKey, setKey] = useState(null);
+  const [gameKey, setKey] = useState(localStorage?.getItem('key'))
   const [gameOver, setGameOver] = useState(null);
 
   const handleEndGame = useCallback(() => {
