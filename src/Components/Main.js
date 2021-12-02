@@ -37,6 +37,7 @@ export const Main = () => {
   useEffect(() => {
     if (settings) {
       // De settings zijn geladen, haal hier de aanwijzingen op en bewaar ze in de state (setClues)
+      setClues = Clues
     }
   }, [settings]);
 
