@@ -15,4 +15,11 @@ const Clues = () => {
   );
 };
 
+
+
+
+
+
+
+
 export default Clues;

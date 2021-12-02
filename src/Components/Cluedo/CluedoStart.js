@@ -2,6 +2,9 @@ import React from "react";
 import {useSettings} from "../context/useSettings";
 import Button from "../Button";
 
+import Mansion from "./Mansion"
+
+
 /*
    CLUEDO START
    ------------
@@ -13,7 +16,10 @@ const CluedoStart = ({ onStart }) => {
   const { settings } = useSettings();
 
   const startGame = () => {
-    //
+    // Haal alle kamers en clues op 
+
+    // Visualiseer kamers
+    
   };
 
   return (
