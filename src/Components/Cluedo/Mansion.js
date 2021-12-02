@@ -31,12 +31,13 @@ export const Mansion = ({ onSelectRoom }) => {
       if (i.type === "room") {
         console.log(i);
         return (
-          <div>
-            <div> {i.title} </div>
+          <div className="image-container">
             <img
-              alt="soep"
+              alt="room"
+              className="image"
               src={`${process.env.REACT_APP_BASE_URL}/${i.image}`}
             />
+            <div className="centered-text"> {i.title} </div>
           </div>
         );
       }
@@ -48,8 +49,8 @@ export const Mansion = ({ onSelectRoom }) => {
       <h3>Rooms</h3>
       <br />
       <br />
-      <div>
-        <div>{getRooms()}</div>
+      <div className="room-container">
+        {getRooms()}
       </div>
     </div>
   );

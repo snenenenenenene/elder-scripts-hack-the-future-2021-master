@@ -19,18 +19,24 @@ useEffect(() => {
 }, [])
 
   return (
-    <div className="full file">
+    <div className="full file answers-container">
       <h2>{outcome.outcome.message}</h2>
-      <p>Jouw antwoord: </p>
-       <p>
-         Kamer: {outcome.outcome.accusation.room}
+      <div>
+      <p className="answers-title">Jouw antwoord: </p>
+       <div className="answers">
+         <p>Kamer: {outcome.outcome.accusation.room}</p>
          <p>Wapen: {outcome.outcome.accusation.weapon}</p>
          <p>Suspect: {outcome.outcome.accusation.suspect}</p>
-         </p>
-      <p>Het juiste antwoord:</p>
-        <p>
-          Kamer: {outcome.outcome.solution.room} Wapen: {outcome.outcome.solution.weapon} Suspect: {outcome.outcome.solution.suspect}</p>
-
+         </div>
+         </div>
+         <div>
+      <p className="answers-title">Het juiste antwoord:</p>
+        <div className="answers">
+         <p>Kamer: {outcome.outcome.solution.room}</p>
+         <p>Wapen: {outcome.outcome.solution.weapon}</p>
+         <p>Suspect: {outcome.outcome.solution.suspect}</p>
+         </div>
+         </div>
     </div>
   );
 };
