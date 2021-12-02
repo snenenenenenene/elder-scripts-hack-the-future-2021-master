@@ -384,3 +384,7 @@ margin: 10px;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   font-size: 40px;
 }
+.image-container:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import { MakeSuggestionForm } from "../Forms/MakeSuggestionForm";
 /*
    HET HUIS
    --------
@@ -8,8 +10,12 @@ import axios from "axios";
 
 export const Mansion = ({ onSelectRoom }) => {
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [rooms, setRooms] = useState([]);
   const [response, setResponse] = useState([]);
+
+  useEffect(() => {
+    onSelectRoom(selectedRoom)
+  }, [selectedRoom])
+
 
   const apiCall = () => {
     axios
@@ -19,19 +25,19 @@ export const Mansion = ({ onSelectRoom }) => {
           password: process.env.REACT_APP_PASSWORD,
         },
       })
-      .then((response) => setResponse(response.data));
-  };
+      .then((response) => setResponse(response.data)
+      );
+  }
 
   useEffect(() => {
-    apiCall();
-  }, []);
+    apiCall()
+  }, [])
 
   const getRooms = () => {
     return response.map((i) => {
       if (i.type === "room") {
-        console.log(i);
         return (
-          <div className="image-container">
+          <div onClick={() => setSelectedRoom(i.id)} className="image-container">
             <img
               alt="room"
               className="image"

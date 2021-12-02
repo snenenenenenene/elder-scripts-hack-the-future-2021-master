@@ -17,6 +17,11 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
   const [room, setRoom] = useState(null);
   const [isArrest, setIsArrest] = useState(false);
 
+  const pushLog = (newLog) => {
+    console.log(log)
+    console.log(newLog)
+  }
+
   return (
     <div className="file full">
       {room && (
@@ -30,7 +35,9 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
       {!room && !isArrest && (
         <div>
           <h2>Cluedo</h2>
+
           <Mansion onSelectRoom={setRoom} />
+
           <div className="cluedo-btn-box">
             <Button value="Maak arrestatie" onClick={() => setIsArrest(true)} />
             <Button value="Spel Stoppen" onClick={onEndGame} />
