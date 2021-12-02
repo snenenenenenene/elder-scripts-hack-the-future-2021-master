@@ -51,7 +51,7 @@ const Clues = () => {
         return itemResponse(i);
       });
     } else {
-      return <div>No Data</div>;
+      return <div>Loading</div>;
     }
   };
 

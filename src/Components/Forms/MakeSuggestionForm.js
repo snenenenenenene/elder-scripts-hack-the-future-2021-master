@@ -9,7 +9,7 @@ import Button from "../Button";
    Maak hier een formulier om een suggestie te verrichten.
 */
 
-export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
+export const MakeSuggestionForm = ({ gameKey, selectedRoom,onSuggestion, newLog }) => {
   const { settings } = useSettings();
   const [clues, setClues] = useState([]);
 
@@ -52,9 +52,9 @@ export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
         }
       )
       .then((response) => {
-        {
-          console.log(response);
-        }
+        newLog([{"Room": selectedRoom, "Weapon": weapon, "suspect":suspect}])
+        onSuggestion()
+        console.log(response);
       });
     e.preventDefault();
   };

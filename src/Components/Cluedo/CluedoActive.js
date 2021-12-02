@@ -17,11 +17,6 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
   const [room, setRoom] = useState(null);
   const [isArrest, setIsArrest] = useState(false);
 
-  const pushLog = (newLog) => {
-    console.log(log)
-    console.log(newLog)
-  }
-
   return (
     <div className="file full">
       {room && (
@@ -29,6 +24,7 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
           gameKey={gameKey}
           selectedRoom={room}
           onSuggestion={() => setRoom(null)}
+          newLog={(log) => setLog(log)}
         />
       )}
       {isArrest && <MakeArrestForm gameKey={gameKey} onArrest={onArrest} />}
