@@ -192,7 +192,7 @@ li p {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-family: inherit;
   text-align: center;
 }
@@ -285,6 +285,21 @@ outline: none;
 transition: all 0.1s;
 }
 input[type=text]:focus {
+background-color: #000;
+color: white;
+}
+
+select {
+  height: 3.8rem;
+  font-size: 2rem;
+  padding: 10px;
+  margin: 3px;
+  border: 0.5px solid #000;
+  outline: none;
+  transition: all 0.1s;
+  }
+
+select:focus {
 background-color: #000;
 color: white;
 }

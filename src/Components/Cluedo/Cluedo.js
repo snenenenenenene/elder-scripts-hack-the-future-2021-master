@@ -1,5 +1,5 @@
 import { Switch } from "react-router-dom";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import CluedoActive from "./CluedoActive";
 import GameOver from "./CluedoEnd";
 import CluedoStart from "./CluedoStart";
@@ -15,6 +15,10 @@ const Cluedo = () => {
     setGameOver(null);
     localStorage.removeItem('key')
   }, []);
+
+  useEffect(() => {
+    console.log(gameOver)
+  }, [gameOver])
 
   return settings ? (
     <Switch>

@@ -15,7 +15,6 @@ import { MakeArrestForm } from "../Forms/MakeArrestForm";
 const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
   const [log, setLog] = useState([]);
   const [room, setRoom] = useState(null);
-
   const [isArrest, setIsArrest] = useState(false);
 
   return (
