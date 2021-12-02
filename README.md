@@ -1,4 +1,4 @@
-# hack-the-future-2021
+# hack-the-future-2021 - Elder Scripts
 
 Jij bent de frontend rechercheur die een blitse applicatie zal maken die de backend API aanspreekt. Gebruik je kennis, kunde en doorzettingsvermogen om een coole, maar ook gebruiksvriendelijke, intuïtieve UI ineen te steken die uiteindelijk een echt Cluedo spel zal worden.
 Je spreekt de API aan om de verschillende “clues” van een “suggestie” in te laden en te visualiseren: de kamers, de verdachten en de wapens.
@@ -22,9 +22,9 @@ De authenticatie op deze API gebeurt over Basic Authentication, de gegevens in d
 3. Maak een formulier om een suggestie te doen na het klikken op een kamer. Stuur een verdachte en een wapen naar de API endpoint en handel de response af.
    - Extra punt: Houd de historiek van gemaakte suggesties bij en toon deze op het scherm.
 4. Maak een formulier om een arrestatie/beschuldiging te maken en zo het spel te beëindigen.
-   - Extra punt: Maak een aantrekkelijke pagina voor het einde van het spel. 
-5. Lijst in aparte “notities” de verdachten, wapens en kamers op en maak aan de hand van de antwoorden op je suggesties een shortlist. 
+   - Extra punt: Maak een aantrekkelijke pagina voor het einde van het spel.
+5. Lijst in aparte “notities” de verdachten, wapens en kamers op en maak aan de hand van de antwoorden op je suggesties een shortlist.
 6. Voeg een knop toe die het spel automatisch wint.
-   - Extra punt: Zorg dat je het automatische spel visueel kan volgen. 
+   - Extra punt: Zorg dat je het automatische spel visueel kan volgen.
 
 Algemeen extra punt: Propere foutafhandeling en feedback naar de gebruiker
