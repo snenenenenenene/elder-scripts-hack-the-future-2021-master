@@ -14,21 +14,9 @@ import useAxios from "../../Hooks/useAxios";
 
 const CluedoStart = ({ onStart }) => {
   const [gameKey] = useAxios("https://htf-2021.calibrate.be/api/cluedo/new-game");
-  const [clues] = useAxios("https://htf-2021.calibrate.be/api/cluedo/clues")
-  const [rooms, setRooms] = useState([])
-  const history = useHistory();
   const { settings } = useSettings();
 
   const startGame = () => {
-    let _rooms = [];
-    console.log(gameKey.data.key)
-    clues.data.forEach(i => {
-      if (i.type === "room"){
-      _rooms.push(i)
-    }
-    })
-    setRooms(_rooms)
-    console.log(rooms)
     localStorage.setItem('key', gameKey)
     window.location.reload()
   };
