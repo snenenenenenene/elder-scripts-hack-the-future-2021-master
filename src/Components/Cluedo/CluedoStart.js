@@ -1,7 +1,12 @@
-import React from "react";
 import {useSettings} from "../context/useSettings";
 import Button from "../Button";
+import React, {useEffect, useState} from "react";
 
+
+import axios from 'axios';
+
+
+import Clues from "../Clues/Clues"
 import Mansion from "./Mansion"
 
 
@@ -14,12 +19,41 @@ import Mansion from "./Mansion"
 
 const CluedoStart = ({ onStart }) => {
   const { settings } = useSettings();
+  const [responseData, setResponseData] = useState({})
+
 
   const startGame = () => {
+    axios.get('https://htf-2021.calibrate.be/api/cluedo/clues', {
+      auth: {
+        username: process.env.REACT_APP_USERNAME,
+        password: process.env.REACT_APP_PASSWORD
+      }
+    })
+        .then(results => {
+          console.log(results)
+          setResponseData(results.data)
+        })
+      }
+    
+      const mapResponse = () => {
+        if (responseData != {}) {
+          return (responseData.map((i) => (
+              <div>
+                <p>{i.id}. {i.type}: {i.title}</p>
+              </div>
+            ))
+          )
+        }
+        else {
+            return (<div>No Data</div>)
+        }
     // Haal alle kamers en clues op 
 
+    // Start mansion
+
+
     // Visualiseer kamers
-    
+
   };
 
   return (
