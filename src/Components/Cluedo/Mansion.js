@@ -33,7 +33,7 @@ axios
       return (
         <div>
           <div> {i.title} </div>
-          <img alt="soep" src={i.image} />
+          <img alt="soep" src={`${process.env.REACT_APP_BASE_URL}/${i.image}`} />
         </div>
       );
       }
