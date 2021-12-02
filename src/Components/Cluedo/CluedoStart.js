@@ -14,10 +14,13 @@ import useAxios from "../../Hooks/useAxios";
 
 const CluedoStart = ({ onStart }) => {
   const [gameKey] = useAxios("https://htf-2021.calibrate.be/api/cluedo/new-game");
+  const [token] = useAxios("https://htf-2021.calibrate.be/session/token");
   const { settings } = useSettings();
 
   const startGame = () => {
-    localStorage.setItem('key', gameKey)
+    console.log("TOKEN: " +  token)
+    localStorage.setItem('key', gameKey.data.key)
+    // localStorage.setItem('token', token.data)
     window.location.reload()
   };
 

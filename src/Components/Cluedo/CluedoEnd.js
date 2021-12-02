@@ -7,6 +7,7 @@ import React from "react";
 */
 
 const GameOver = () => {
+
   return (
     <div className="full file">
       Toon hier de Game Over pagina met het opgegeven antwoord en de juiste

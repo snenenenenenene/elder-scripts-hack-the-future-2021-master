@@ -18,12 +18,17 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
 
   const [isArrest, setIsArrest] = useState(false);
 
+  const pushLog = (newLog) => {
+      setLog(log.push(newLog))
+  }
+
   return (
     <div className="file full">
       {room && (
         <MakeSuggestionForm
           gameKey={gameKey}
           selectedRoom={room}
+          newLog={pushLog}
           onSuggestion={() => setRoom(null)}
         />
       )}
@@ -31,7 +36,7 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
       {!room && !isArrest && (
         <div>
           <h2>Cluedo</h2>
-          
+
           <Mansion onSelectRoom={setRoom} />
 
           <div className="cluedo-btn-box">

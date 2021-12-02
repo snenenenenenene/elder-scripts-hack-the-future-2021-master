@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSettings } from "../context/useSettings";
+import Button from "../Button";
 
 /*
    SUGGESTIE FORMULIER
@@ -8,43 +9,42 @@ import { useSettings } from "../context/useSettings";
    Maak hier een formulier om een suggestie te verrichten.
 */
 
-export const MakeSuggestionForm = ({ gameKey, selectedRoom }) => {
-  // const { settings } = useSettings();
+export const MakeSuggestionForm = ({ gameKey, selectedRoom, newLog }) => {
+  const { settings } = useSettings();
 
   const [weapon, setWeapon] = useState(null)
   const [suspect, setSuspect] = useState(null)
   
-  const handleChange = (event) => {
-    setWeapon(event.weapon);
-    setSuspect(event.suspect)
-  }
+  const handleSubmit = (e) => {
 
-  const handleSubmit = (event) => {
-    console.log("object")
-    console.log(event)
-    // axios.post("https://htf-2021.calibrate.be/api/cluedo/guess?key={$gameKey}", {
-    //   room: selectedRoom,
-    //   weapon: weapon,
-    //   suspect: suspect
-    // }).then((response) =>
-    //   console.log(response)
-    // )
-    // event.preventDefault();
+    const json = JSON.stringify({
+      "room": selectedRoom,
+      "weapon": weapon,
+      "suspect": suspect
+    });
+
+    axios.post(`https://htf-2021.calibrate.be/api/cluedo/guess?key=${gameKey}`, json)
+    .then((response) => {
+    
+      {
+          newLog(json)
+      }
+    
+    }
+    )
+    e.preventDefault();
   }
 
   return (
     <div>
       <h2>Maak een suggestie</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Weapon:
-          <input type="text" name="weapon" value={weapon} onChange={handleChange} />
-        </label>
-        <label>
-          Suspect:
-          <input type="text" name="suspect" value={suspect} onChange={handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+      <form style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
+        <label htmlFor="suspect">Suspect</label>
+        <input id="suspect" name="suspect" type="text" onChange={(e) => setSuspect(e.target.value)}/>
+        <label htmlFor="weapon">Weapon</label>
+        <input id="weapon" name="weapon" type="text" onChange={(e) => setWeapon(e.target.value)}/>
+      <p>Maak een formulier om een arrestatie te maken.</p>
+      <Button value="Maak suggestie" onClick={(e) => handleSubmit(e)}></Button>
       </form>
     </div>
   );

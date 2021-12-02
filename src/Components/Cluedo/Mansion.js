@@ -44,8 +44,7 @@ export const Mansion = ({ onSelectRoom }) => {
         );
       }
     });
-  }
-
+  };
 
   return (
     <div>
@@ -57,4 +56,5 @@ export const Mansion = ({ onSelectRoom }) => {
       </div>
     </div>
   );
-}
+};
+ 
