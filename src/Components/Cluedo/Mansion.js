@@ -11,41 +11,33 @@ export const Mansion = ({ onSelectRoom }) => {
   const [rooms, setRooms] = useState([]);
   const [response, setResponse] = useState([]);
 
-const apiCall = async () => {
-  await axios
+const apiCall = () => {
+axios
   .get("https://htf-2021.calibrate.be/api/cluedo/clues", {
     auth: {
       username: process.env.REACT_APP_USERNAME,
       password: process.env.REACT_APP_PASSWORD,
     },
   })
-  .then((response) => {
-    setResponse(response.data)
-  }
+  .then((response) => setResponse(response.data)
     );}
 
   useEffect( () => {
      apiCall()
-
-     let _rooms = [];
-    response.forEach((i) => {
-      if (i.type === "room") {
-        _rooms.push(i);
-      }
-      console.log(rooms)
-    setRooms(_rooms);
-  })
-}, [])
+  }, [])
 
   const getRooms = () => {
-    return rooms.map((i) => {
+    console.log(response[0])
+    if (response.type === "room"){
+    return response.map((i) => {
+      console.log(i)
       return (
         <div>
           <div> {i.title} </div>
           <img alt="soep" src={i.image} />
         </div>
       );
-    });
+    });}
   };
 
   return (
