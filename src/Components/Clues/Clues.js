@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, {useEffect, useState} from "react";
+import axios from 'axios';
 /*
    AANWIJZINGEN
    ------------
@@ -7,10 +7,41 @@ import React from "react";
 */
 
 const Clues = () => {
+
+  const [responseData, setResponseData] = useState({})
+
+  useEffect(() => {
+    axios.get('https://htf-2021.calibrate.be/api/cluedo/clues', {
+  auth: {
+    username: process.env.REACT_APP_USERNAME,
+    password: process.env.REACT_APP_PASSWORD
+  }
+})
+    .then(results => {
+      console.log(results)
+      setResponseData(results.data)
+    })
+  }, [])
+
+  const mapResponse = () => {
+    if (responseData != {}) {
+      return (responseData.map((i) => (
+          <div>
+            <p>{i.id}. {i.type}: {i.title}</p>
+          </div>
+        ))
+      )
+    }
+    else {
+        return (<div>No Data</div>)
+    }
+  }
   return (
     <div className="full file">
       <h2>Aanwijzingen</h2>
       <div>Lijst hier de kamers, wapens en verdachten op.</div>
+
+
     </div>
   );
 };
