@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import { MakeSuggestionForm } from "../Forms/MakeSuggestionForm";
 /*
    HET HUIS
    --------
@@ -8,36 +10,41 @@ import axios from "axios";
 
 export const Mansion = ({ onSelectRoom }) => {
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [rooms, setRooms] = useState([]);
   const [response, setResponse] = useState([]);
 
-const apiCall = () => {
-axios
-  .get("https://htf-2021.calibrate.be/api/cluedo/clues", {
-    auth: {
-      username: process.env.REACT_APP_USERNAME,
-      password: process.env.REACT_APP_PASSWORD,
-    },
-  })
-  .then((response) => setResponse(response.data)
-    );}
+  useEffect(() => {
+    onSelectRoom(selectedRoom)
+  }, [selectedRoom])
 
-  useEffect( () => {
-     apiCall()
+
+  const apiCall = () => {
+    axios
+      .get("https://htf-2021.calibrate.be/api/cluedo/clues", {
+        auth: {
+          username: process.env.REACT_APP_USERNAME,
+          password: process.env.REACT_APP_PASSWORD,
+        },
+      })
+      .then((response) => setResponse(response.data)
+      );
+  }
+
+  useEffect(() => {
+    apiCall()
   }, [])
 
   const getRooms = () => {
     return response.map((i) => {
-      if (i.type === "room"){
-      console.log(i)
-      return (
-        <div>
-          <div> {i.title} </div>
-          <img alt="soep" src={`${process.env.REACT_APP_BASE_URL}/${i.image}`} />
-        </div>
-      );
+      if (i.type === "room") {
+        return (
+          <div>
+            <div onClick={() => setSelectedRoom(i.id)}> {i.title} </div>
+            <img alt="soep" src={`${process.env.REACT_APP_BASE_URL}/${i.image}`} />
+          </div>
+        );
       }
-    });}
+    });
+  }
 
 
   return (

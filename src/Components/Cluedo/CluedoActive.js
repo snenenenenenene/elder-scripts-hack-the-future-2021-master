@@ -31,7 +31,9 @@ const CluedoActive = ({ gameKey, onEndGame, onArrest }) => {
       {!room && !isArrest && (
         <div>
           <h2>Cluedo</h2>
+          
           <Mansion onSelectRoom={setRoom} />
+
           <div className="cluedo-btn-box">
             <Button value="Maak arrestatie" onClick={() => setIsArrest(true)} />
             <Button value="Spel Stoppen" onClick={onEndGame} />
